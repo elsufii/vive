@@ -1,0 +1,568 @@
+.dostoevsky-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10000;
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  width: 70%;
+  max-height: 70vh;
+  overflow-y: auto;
+  border-radius: 5px;
+}
+
+.close-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.transformed-text {
+  margin-top: 20px;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.error-message {
+  color: #721c24;
+  background-color: #f8d7da;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+/* Loading animation */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-style: italic;
+  color: #666;
+}
+
+.loading::after {
+  content: '';
+  width: 30px;
+  height: 30px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Popup styles */
+.container {
+  width: 300px;
+  padding: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.dostoevsky-floating-box {
+  position: fixed;
+  background: #fdfbf7;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  width: 400px;
+  min-height: 200px;
+  max-height: 80vh;
+  z-index: 999999;
+  overflow: hidden;
+  font-family: 'Georgia', serif;
+  transition: width 0.3s ease, height 0.3s ease;
+  min-width: 300px;
+  min-height: 200px;
+}
+
+.floating-box-header {
+  padding: 16px;
+  background: #2c1810;
+  color: #e8d5c4;
+  border-bottom: 1px solid #3a2218;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  user-select: none;
+}
+
+.floating-box-content {
+  padding: 24px;
+  padding-bottom: 40px;
+  overflow-y: auto;
+  max-height: calc(80vh - 60px);
+  line-height: 1.8;
+  height: calc(100% - 60px);
+  scroll-behavior: smooth;
+}
+
+.close-button {
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+.loading-box {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Update loading animation styles */
+.loading {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 20px;
+}
+
+.loading:after {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-color: #666 transparent #666 transparent;
+  animation: loading 1.2s linear infinite;
+}
+
+@keyframes loading {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.resize-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 15px;
+  height: 15px;
+  cursor: se-resize;
+  background: linear-gradient(135deg, transparent 50%, #5c2b20 50%);
+}
+
+/* Add extra scroll space at bottom */
+.scroll-padding {
+  height: 100px; /* Adjustable height for extra scroll space */
+  width: 100%;
+}
+
+/* Ensure text doesn't get cut off at bottom */
+.floating-box-content p:last-of-type {
+  margin-bottom: 1em;
+}
+
+.summarize-icon-button {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.summarize-icon-button::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.summarize-icon-button[title="Show original text"]::after {
+  opacity: 1;
+}
+
+.summarize-icon-button:hover {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.summarize-icon-button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.writing-panel {
+  position: fixed;
+  z-index: 10002;
+}
+
+.writing-card {
+  position: fixed;
+  background: url("https://img.freepik.com/foto-premium/vecchia-carta-pergamena-texture-di-sfondo-carta-da-parati-vintage_118047-11775.jpg");
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  transform: perspective(850px) rotateY(5deg);
+  z-index: 10002;
+  user-select: text;
+}
+
+.writing-content {
+  width: 100%;
+  min-height: 200px;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #2c1810;
+  background: transparent;
+  border: 1px solid rgba(44, 24, 16, 0.2);
+  resize: none;
+}
+
+.writing-content:focus {
+  outline: 1px solid rgba(44, 24, 16, 0.2);
+}
+
+.writing-content::selection {
+  background-color: rgba(43, 24, 16, 0.2) !important;
+}
+
+.writing-card-header {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.close-writing {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #2c1810;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.writing-card .writing-title,
+.writing-card .writing-content {
+  cursor: text;
+}
+
+/* Rest of your existing writing-related styles... */
+
+.saved-notes-panel {
+  position: fixed;
+  z-index: 10000;
+}
+
+.saved-notes-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url("https://img.freepik.com/foto-premium/vecchia-carta-pergamena-texture-di-sfondo-carta-da-parati-vintage_118047-11775.jpg");
+  padding: 20px;
+  width: 400px;
+  max-height: 80vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  user-select: none;
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.notes-header h2 {
+  margin: 0;
+  font-family: 'Dancing Script', serif;
+  color: #2c1810;
+}
+
+.close-notes {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #2c1810;
+  cursor: pointer;
+}
+
+.notes-list {
+  overflow-y: auto;
+  max-height: calc(80vh - 100px);
+}
+
+.note-item {
+  position: relative;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.note-item:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.note-item h3 {
+  margin: 0 0 10px 0;
+  font-family: 'Dancing Script', serif;
+  color: #2c1810;
+}
+
+.note-preview {
+  color: #444;
+  font-size: 0.9em;
+  margin: 0;
+}
+
+.note-date {
+  font-size: 0.8em;
+  color: #666;
+  margin-top: 10px;
+}
+
+.delete-note {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #8b4513;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.note-item:hover .delete-note {
+  opacity: 1;
+}
+
+.no-notes {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+.edit-note {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #8b4513;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  font-family: 'Dancing Script', serif;
+}
+
+.note-item:hover .edit-note {
+  opacity: 1;
+}
+
+.note-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 0.8em;
+  color: #666;
+}
+
+.note-url {
+  color: #8b4513;
+  text-decoration: none;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note-url:hover {
+  text-decoration: underline;
+}
+
+.page-notes-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  cursor: move;
+  background: #2c1810;
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  width: fit-content;
+  white-space: nowrap;
+  min-width: min-content;
+  max-width: max-content;
+}
+
+.page-notes-button button {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.page-notes-button span {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.note-content {
+  padding: 16px;
+  white-space: pre-wrap;
+  max-height: 400px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  margin: 8px 0;
+}
+
+.toggle-text-button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: #2c1810;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.transformed-container:hover .toggle-text-button {
+  opacity: 1;
+}
+
+.toggle-text-button:hover {
+  background: #3a2218;
+}
+
+.transformed-container {
+  display: inline-block;
+  position: relative;
+  background: rgba(253, 251, 247, 0.95);
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin: 2px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: Georgia, serif;
+  line-height: 1.6;
+  transition: opacity 0.3s ease;
+}
+
+.text-actions {
+  position: absolute;
+  top: -30px;
+  right: 0;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.transformed-container:hover .text-actions {
+  opacity: 1;
+}
+
+.action-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: #2c1810;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.action-button:hover {
+  background: #3a2218;
+}
+
+.toggle-action {
+  order: -1; /* This puts the toggle button first */
+}
+ 
+.toggle-view-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: #2c1810;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  display: none; /* Initially hidden */
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.toggle-view-button:hover {
+  background: #3a2218;
+}
+
+.toggle-view-button svg {
+  transform: scale(0.7); /* Adjusted to match other icons */
+}
